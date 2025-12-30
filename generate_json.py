@@ -145,10 +145,11 @@ def gerar_json():
             except (json.JSONDecodeError, FileNotFoundError):
                 existing = []
 
-        existing.extend(novos)
+        # Adiciona novos no começo da lista para que fiquem no topo do JSON
+        novos.extend(existing)
 
         with open(data_file, "w", encoding="utf-8") as f:
-            json.dump(existing, f, indent=2, ensure_ascii=False)
+            json.dump(novos, f, indent=2, ensure_ascii=False)
         print(f"✅ data.json atualizado: {data_file}")
         print(f"🔹 Novas músicas adicionadas: {len(novos)}")
         print(f"🔹 Total de músicas em data.json: {len(existing)}")
